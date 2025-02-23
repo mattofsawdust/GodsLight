@@ -31,7 +31,6 @@ const HealingSession = ({ onClose }) => {
     e.preventDefault()
     if (!userInput.trim()) return
 
-    // Enforce 5-second delay between requests
     const now = Date.now()
     const timeSinceLastRequest = now - lastRequestTime
     if (timeSinceLastRequest < 5000) {
@@ -74,7 +73,7 @@ const HealingSession = ({ onClose }) => {
 
             Keep responses concise, caring, and focused on empowering their healing journey.`
           },
-          ...messages.slice(-4), // Only keep last 4 messages for context
+          ...messages.slice(-4),
           newMessage
         ],
         temperature: 0.7,
