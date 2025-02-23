@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import OpenAI from 'openai';
 import { tpmGuidelines } from '../utils/tpmGuidelines';
 import './HealingSession.css';
 
@@ -8,11 +7,6 @@ const HealingSession = ({ currentMood, onClose }) => {
   const [userInput, setUserInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState(null);
-
-  const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true
-  });
 
   // Initialize chat with welcome message
   useEffect(() => {
@@ -62,39 +56,43 @@ The person is feeling ${currentMood?.label || 'uncertain'}. Maintain a warm, car
       const newUserMessage = { type: 'user', content: userMessage };
       setChatHistory(prev => [...prev, newUserMessage]);
 
-      // Get AI response
-      const response = await openai.chat.completions.create({
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: createSystemPrompt()
-          },
-          ...chatHistory
-            .filter(msg => msg.type !== 'welcome')
-            .map(msg => ({
-              role: msg.type === 'user' ? 'user' : 'assistant',
-              content: msg.content
-            })),
-          { role: 'user', content: userMessage }
-        ],
-        temperature: 0.7,
-        max_tokens: 250,
+      // Prepare messages for API
+      const messages = chatHistory
+        .filter(msg => msg.type !== 'welcome')
+        .map(msg => ({
+          role: msg.type === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        }));
+      messages.push({ role: 'user', content: userMessage });
+
+      // Call our API route
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages,
+          systemPrompt: createSystemPrompt()
+        }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+      }
+
+      const aiMessage = await response.json();
+
       // Add AI response to chat
-      const aiMessage = { 
+      setChatHistory(prev => [...prev, { 
         type: 'assistant', 
-        content: response.choices[0].message.content 
-      };
-      setChatHistory(prev => [...prev, aiMessage]);
+        content: aiMessage.content 
+      }]);
 
     } catch (err) {
       console.error('Error:', err);
-      setError(err.status === 429 
-        ? "Please wait a moment before sending another message." 
-        : "Something went wrong. Please try again."
-      );
+      setError(err.message || "Something went wrong. Please try again.");
     } finally {
       setIsProcessing(false);
     }
