@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+# testing
+/coverage
+
 # production
 /dist
 /build
@@ -18,4 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.vercel
