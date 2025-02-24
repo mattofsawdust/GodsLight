@@ -1,18 +1,19 @@
 .healing-session {
   display: flex;
   flex-direction: column;
-  height: 80vh;
-  border-radius: 12px;
+  height: 100%;
   background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .session-header {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  border-bottom: 1px solid #e0e0e0;
+  background: white;
 }
 
 .close-button {
@@ -20,92 +21,60 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  padding: 0.5rem;
+  color: #95a5a6;
 }
 
 .chat-container {
-  flex-grow: 1;
-  overflow-y: hidden;
+  flex: 1;
+  overflow-y: auto;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-}
-
-.mood-indicator {
-  text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-}
-
-.message-list {
-  display: flex;
-  flex-direction: column;
   gap: 1rem;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 1rem;
-  max-height: calc(100vh - 200px);
 }
 
 .message {
   padding: 1rem;
   border-radius: 8px;
   max-width: 80%;
+  background: #f8f9fa;
+  line-height: 1.5;
 }
 
 .message.welcome {
-  background: #f8f9fa;
+  text-align: center;
   margin: 0 auto;
-  text-align: center;
-  max-width: 100%;
-}
-
-.message.user {
-  background: #3498db;
-  color: white;
-  align-self: flex-end;
-}
-
-.message.assistant {
-  background: #f8f9fa;
-  align-self: flex-start;
-}
-
-.message.processing {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-}
-
-.error-message {
-  color: #e74c3c;
-  text-align: center;
-  padding: 0.5rem;
+  background: #f0f7ff;
 }
 
 .input-form {
-  display: flex;
-  gap: 0.5rem;
   padding: 1rem;
   border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 0.5rem;
+  background: white;
 }
 
 .input-form input {
-  flex-grow: 1;
-  padding: 0.5rem;
+  flex: 1;
+  padding: 0.75rem;
   border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
 .input-form button {
-  padding: 0.5rem 1rem;
-  background: #3498db;
+  padding: 0.75rem 1.5rem;
+  background: #2c3e50;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.input-form button:hover {
+  background: #34495e;
 }
 
 .input-form button:disabled {
@@ -115,23 +84,22 @@
 
 @media (max-width: 768px) {
   .healing-session {
-    height: 100vh;
     border-radius: 0;
   }
 
-  .session-header {
-    padding: 0.75rem;
-  }
-
-  .session-header h2 {
-    font-size: 1.2rem;
-  }
-
   .message {
-    padding: 0.75rem;
+    max-width: 90%;
   }
 
   .input-form {
     padding: 0.75rem;
+  }
+
+  .input-form input {
+    padding: 0.5rem;
+  }
+
+  .input-form button {
+    padding: 0.5rem 1rem;
   }
 }
