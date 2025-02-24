@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { tpmGuidelines } from '../utils/tpmGuidelines';
 import './HealingSession.css';
 
@@ -7,6 +7,14 @@ const HealingSession = ({ currentMood, onClose }) => {
   const [userInput, setUserInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState(null);
+  const messageListRef = useRef(null);
+
+  // Scroll to bottom function
+  const scrollToBottom = () => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  };
 
   // Initialize chat with welcome message
   useEffect(() => {
@@ -21,6 +29,11 @@ Would you like to tell me more about what's bringing up these feelings for you?`
     
     setChatHistory([welcomeMessage]);
   }, [currentMood]);
+
+  // Scroll when chat history updates
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatHistory]);
 
   const createSystemPrompt = () => {
     const relevantTheme = tpmGuidelines.commonThemes[currentMood?.label] || tpmGuidelines.commonThemes.general;
@@ -121,7 +134,7 @@ The person is feeling ${currentMood?.label || 'uncertain'}. Maintain a warm, car
           </div>
         )}
 
-        <div className="message-list">
+        <div className="message-list" ref={messageListRef}>
           {chatHistory.map((message, index) => (
             <div 
               key={index} 
