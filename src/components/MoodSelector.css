@@ -1,21 +1,24 @@
 .mood-selector {
-  width: 100%;
-  text-align: center;
-  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
 }
 
 .mood-selector h2 {
   margin-bottom: 1.5rem;
   color: #2c3e50;
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-size: 1.3rem;
+  text-align: center;
 }
 
 .mood-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
   max-width: 600px;
-  margin: 0 auto;
   padding: 0 0.5rem;
 }
 
@@ -23,36 +26,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.75rem;
+  justify-content: center;
+  padding: 1rem;
   border: 2px solid #e0e0e0;
   border-radius: 12px;
   background: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
+  aspect-ratio: 1;
 }
 
 .mood-emoji {
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 
 .mood-label {
-  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-size: 1rem;
   color: #2c3e50;
   text-transform: capitalize;
 }
 
-@media (max-width: 768px) {
-  .mood-selector {
-    padding: 0.5rem;
-  }
-
+@media (min-width: 768px) {
   .mood-grid {
-    gap: 0.5rem;
-  }
-
-  .mood-button {
-    padding: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 }
