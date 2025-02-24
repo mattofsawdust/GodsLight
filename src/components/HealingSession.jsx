@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { tpmGuidelines } from '../utils/tpmGuidelines';
 import './HealingSession.css';
 
-const HealingSession = ({ currentMood, onClose }) => {
+const HealingSession = ({ currentMood }) => {
   const [chatHistory, setChatHistory] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -22,7 +22,7 @@ const HealingSession = ({ currentMood, onClose }) => {
       type: 'welcome',
       content: `I notice you're feeling ${currentMood?.label || 'uncertain'} ${currentMood?.emoji || ''}. 
 
-I'm here to guide you through Theophostic Prayer Ministry, a healing practice focused on identifying emotional wounds and receiving God's truth. This is a safe space for you to explore your feelings and experiences.
+I'm here to guide you through God's Light Healing, a healing practice focused on identifying emotional wounds and receiving God's truth. This is a safe space for you to explore your feelings and experiences.
 
 Would you like to tell me more about what's bringing up these feelings for you?`
     };
@@ -38,7 +38,7 @@ Would you like to tell me more about what's bringing up these feelings for you?`
   const createSystemPrompt = () => {
     const relevantTheme = tpmGuidelines.commonThemes[currentMood?.label] || tpmGuidelines.commonThemes.general;
     
-    return `You are a compassionate Theophostic Prayer Ministry facilitator. Use these guidelines:
+    return `You are a compassionate God's Light Healing facilitator. Use these guidelines:
 
 ${JSON.stringify(tpmGuidelines.principles, null, 2)}
 
@@ -49,7 +49,7 @@ Relevant Theme and Approaches:
 ${JSON.stringify(relevantTheme, null, 2)}
 
 IMPORTANT GUIDELINES:
-1. Follow the TPM process steps naturally, starting with present emotion
+1. Follow the process steps naturally, starting with present emotion
 2. Keep responses under 3 sentences
 3. Use gentle questions to help identify lies and seek truth
 4. Acknowledge feelings directly
@@ -122,8 +122,7 @@ The person is feeling ${currentMood?.label || 'uncertain'}. Maintain a warm, car
   return (
     <div className="healing-session">
       <header className="session-header">
-        <h2>Theophostic Prayer Ministry Session</h2>
-        <button onClick={onClose} className="close-button" aria-label="Close session">×</button>
+        <h2>God's Light Healing</h2>
       </header>
 
       <div className="chat-container">
