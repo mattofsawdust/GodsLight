@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './HealingSession.css';
 
-const HealingSession = ({ currentMood }) => { // removed onClose prop
+const HealingSession = ({ currentMood }) => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -35,15 +35,43 @@ const HealingSession = ({ currentMood }) => { // removed onClose prop
     setUserInput('');
     setIsProcessing(true);
 
-    // Add your AI response logic here
-    // For now, just adding a placeholder response
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            ...messages.map(msg => ({
+              role: msg.type === 'user' ? 'user' : 'assistant',
+              content: msg.content
+            })),
+            { role: 'user', content: userInput }
+          ],
+          currentMood: currentMood.label
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      
       setMessages(prev => [...prev, {
         type: 'assistant',
-        content: "I hear you. Can you tell me more about that?"
+        content: data.message
       }]);
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages(prev => [...prev, {
+        type: 'assistant',
+        content: "I apologize, but I'm having trouble responding right now. Could you please try again?"
+      }]);
+    } finally {
       setIsProcessing(false);
-    }, 1000);
+    }
   };
 
   return (
