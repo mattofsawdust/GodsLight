@@ -3,24 +3,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.25rem;
+  padding: 0;
   height: 100%;
 }
 
 .mood-selector h2 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   color: #2c3e50;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-align: center;
 }
 
 .mood-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.35rem; /* reduced gap between buttons */
+  gap: 0.25rem; /* minimal gap */
   width: 100%;
   max-width: 600px;
-  padding: 0 0.25rem;
+  padding: 0;
 }
 
 .mood-button {
@@ -28,29 +28,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem; /* significantly reduced padding */
+  padding: 0.1rem; /* super minimal padding */
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 4px;
   background: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  aspect-ratio: 1;
+  height: 80px; /* fixed height instead of aspect-ratio */
 }
 
 .mood-emoji {
-  font-size: 2.25rem; /* increased emoji size */
-  margin-bottom: 0.15rem; /* reduced space between emoji and label */
+  font-size: 2.5rem; /* even bigger emoji */
+  margin-bottom: 0; /* no margin */
 }
 
 .mood-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #2c3e50;
   text-transform: capitalize;
-  line-height: 1; /* reduce line height */
+  line-height: 1;
+  margin-top: -0.25rem; /* negative margin to pull up */
 }
 
 @media (min-width: 768px) {
   .mood-grid {
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
 }
