@@ -3,24 +3,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0;
-  height: 100%;
+  padding: 1rem;
+  min-height: 100vh;
 }
 
 .mood-selector h2 {
-  margin-bottom: 0.25rem;
+  margin-bottom: 2rem;
   color: #2c3e50;
-  font-size: 1.1rem;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   text-align: center;
 }
 
 .mood-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.25rem; /* minimal gap */
+  gap: 1rem;
   width: 100%;
-  max-width: 600px;
-  padding: 0;
+  max-width: 800px;
+  padding: 0 1rem;
+  margin: 0 auto;
 }
 
 .mood-button {
@@ -28,30 +28,60 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.1rem; /* super minimal padding */
+  padding: 1rem;
   border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  border-radius: 8px;
   background: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  height: 80px; /* fixed height instead of aspect-ratio */
 }
 
 .mood-emoji {
-  font-size: 2.5rem; /* even bigger emoji */
-  margin-bottom: 0; /* no margin */
+  font-size: clamp(2rem, 6vw, 3rem);
+  margin-bottom: 0.5rem;
 }
 
 .mood-label {
-  font-size: 0.8rem;
+  font-size: clamp(0.8rem, 2vw, 1rem);
   color: #2c3e50;
   text-transform: capitalize;
-  line-height: 1;
-  margin-top: -0.25rem; /* negative margin to pull up */
 }
 
-@media (min-width: 768px) {
+/* Responsive grid layouts for different screen sizes */
+@media (min-width: 1200px) {
   .mood-grid {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .mood-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .mood-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 479px) {
+  .mood-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .mood-button {
+    padding: 0.75rem;
+  }
+}
+
+/* Add hover effects for desktop */
+@media (hover: hover) {
+  .mood-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 }
