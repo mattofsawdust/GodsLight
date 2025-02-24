@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './HealingSession.css';
 
-const HealingSession = ({ currentMood, onClose }) => {
+const HealingSession = ({ currentMood }) => { // removed onClose prop
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -48,11 +48,6 @@ const HealingSession = ({ currentMood, onClose }) => {
 
   return (
     <div className="healing-session">
-      <div className="session-header">
-        <h2>Theophostic Prayer Ministry Session</h2>
-        <button onClick={onClose} className="close-button">×</button>
-      </div>
-
       <div className="chat-container" ref={chatContainerRef}>
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.type}`}>
