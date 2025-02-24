@@ -1,45 +1,58 @@
 .mood-selector {
-    text-align: center;
-    padding: 2rem;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+
+.mood-selector h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 0.75rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+.mood-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.mood-emoji {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 0.5rem;
+}
+
+.mood-label {
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  color: #2c3e50;
+  text-transform: capitalize;
+}
+
+@media (max-width: 768px) {
+  .mood-selector {
+    padding: 0.5rem;
   }
-  
-  .mood-selector h2 {
-    margin-bottom: 2rem;
-    color: #2c3e50;
-  }
-  
+
   .mood-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
+    gap: 0.5rem;
   }
-  
+
   .mood-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 0.5rem;
   }
-  
-  .mood-button:hover {
-    transform: translateY(-2px);
-    border-color: #3498db;
-  }
-  
-  .mood-emoji {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .mood-label {
-    font-size: 1rem;
-    color: #2c3e50;
-    text-transform: capitalize;
-  }
+}
