@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Theophostic Prayer Ministry Guide</h1>
+        <h1>God's Healing Light</h1>
         <p>Find healing through truth and divine guidance</p>
       </header>
 
